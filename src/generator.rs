@@ -1,8 +1,22 @@
 // generator.rs
 
-use rand;
+use rand::Rng;
 
-fn gen_random_lower() -> char {'?'}
+pub fn gen_random_lower() -> char {
+    /* Generates random lowercase alphanumeric
+     * doesn't include J, U, or W because the original
+     * Latin alphabet didn't have them (source: brittanica.com)
+     */
+
+    let charset: &str = "abcdefghiklmnopqrstvxyz";
+    let charset_len: usize = charset.chars().count();
+
+    let rng: rand::rngs::ThreadRng = rand::thread_rng();
+    let index = rand::thread_rng().gen_range(0..charset_len);
+
+    charset.as_bytes()[index] as char
+
+}
 
 fn gen_random_lower_vowel() -> char {'?'}
 
@@ -21,9 +35,9 @@ fn gen_random_word(capitalized: bool) -> String {
     let mut ret: String = String::new();
     
     // RULES
-    // 5/13 of characters are vowels
-    // mean word length is 7.8
+    // about 38% (5/13) of characters are vowels
     // median word length is 8
+    // estimated mean character count between vowels is 1.333-
 
     ret
 }
